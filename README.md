@@ -135,5 +135,3 @@ Ou instalar tudo de uma vez:
 ```bash
 python -m pip install fastapi uvicorn sqlalchemy aiosqlite pylint pytest pytest-asyncio
 ```
-
-pytest -m -v
