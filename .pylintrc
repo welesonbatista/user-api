@@ -1,13 +1,15 @@
 [MAIN]
 
 disable=
-      C0116, # Used when a module, class, method or function has no docstring or it is
-      E0015, # Used when a method is missing a required argument, which is usually 'self' for instance methods and 'cls' for class methods.
-      C0015, # Used when a docstring is missing or empty. This is used when the docstring
-      C0114, # Used when an inline option has no effect on the message 
-      C0209, # Used when a logging format string is not a string literal. This can potentially lead to security issues if the format string is constructed from user input.
-      E0115, # Used when a method is missing a required argument, which is usually 'self' for instance methods and 'cls' for class methods.
-      C0115, # Used when a class has no docstring or it is empty. This is used when the docstring
+      C0116, # missing-function-docstring
+      E0015, # missing-class-docstring
+      C0015, # missing-class-docstring
+      C0209, # missing-format-string
+      E0115, # missing-method-docstring
+      W0719, # broad-exception-raised
+      C0115, # missing-class-docstring
+      W0012, # ungrouped-imports
+      C0114, # missing-module-docstring
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
 # only in one or another interpreter, leading to false positives when analysed.
