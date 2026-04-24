@@ -44,11 +44,11 @@ class UsersRepository:
             users_list = [dict(row._mapping) for row in rows]
             return users_list
 
-    async def delete_user(self, user_id: int) -> None:
+    async def delete_user(self, id: int) -> None:
         async with DBConnectionHandler() as db:
             assert db.session is not None
 
-            query = delete(Users).where(Users.c.id == user_id)
+            query = delete(Users).where(Users.c.id == id)
 
             await db.session.execute(query)
             await db.session.commit()
