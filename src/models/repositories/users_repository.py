@@ -1,0 +1,32 @@
+from typing import Any, Dict
+from sqlalchemy import insert, select
+from src.models.entities.users import Users
+from src.models.settings.database_connection_handler import DBConnectionHandler
+
+class UsersRepository:
+
+    async def insert_users(self, user_info: Dict [str, Any]) -> None:
+        async with DBConnectionHandler() as db:
+            assert db.session is not None
+
+            query = insert(Users).values(**user_info)
+
+            await db.session.execute(query)
+            await db.session.commit()
+    
+    async def get_users_by_name(self, user_name: str) -> list[dict[str, Any]]:
+        async with DBConnectionHandler() as db:
+
+            if db.session is None:
+                raise RuntimeError("Error to establish database connection")
+
+            query = (
+                select(Users)
+                .where(Users.c.user_name == user_name)
+            )
+
+            result = await db.session.execute(query)
+            rows = result.fetchall()
+
+            users_list = [dict(row._mapping) for row in rows]
+            return users_list
