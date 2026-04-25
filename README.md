@@ -1,4 +1,4 @@
-# Setup de Ambiente Python (FastAPI)
+# Setup de Ambiente Python
 
 ## 1. Criar Ambiente Virtual
 
