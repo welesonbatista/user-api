@@ -42,7 +42,7 @@ class UsersRepository(UsersRepositoryInterface):
             result = await db.session.execute(query)
             rows = result.fetchall()
 
-            users_list = [dict(row.mapping) for row in rows]
+            users_list = [dict(row._mapping) for row in rows]
             return users_list
 
     async def delete_user(self, user_id: int) -> None:

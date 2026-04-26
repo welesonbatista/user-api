@@ -6,7 +6,8 @@ from .http_types.http_response import HttpResponse
 class UserFinderView:
     def __init__(self, controller: UserFinderInterface) -> None:
         self.__controller = controller
-    async def handle_find_user(self, http_request: HttpRequest) -> HttpResponse:
+
+    async def handle_find_user_by_name(self, http_request: HttpRequest) -> HttpResponse:
         if http_request.path_params is None:
             return HttpResponse(
                 body={"error": "Path params required"},
@@ -14,5 +15,10 @@ class UserFinderView:
             )
 
         user_name = http_request.path_params["user_name"]
-        response = self.__controller.find_user(user_name)
-        return HttpResponse(body=response,status_code=200)
+
+        response = await self.__controller.find_user_by_name(user_name)
+
+        return HttpResponse(
+            body=response,
+            status_code=200
+        )
