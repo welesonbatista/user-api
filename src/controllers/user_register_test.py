@@ -1,5 +1,6 @@
 # pylint: disable = C1803
 import pytest
+from src.errors.types.http_bad_request_error import HttpBadRequestError
 from src.models.repositories.interfaces.users_repository import UsersRepositoryInterface
 from .user_register import UserRegister
 
@@ -49,7 +50,7 @@ async def test_register_user_error_uf():
         "age": 30,
         "uf": "AC",
     }
-    with pytest.raises(Exception) as excinfo:
+    with pytest.raises(HttpBadRequestError) as excinfo:
         await user_register.register_user(invalid_uf_user_data)
     assert "UF must be one of" in str(excinfo.value)
     assert user_repository.insert_users_att == {}
@@ -64,7 +65,7 @@ async def test_register_user_error_age():
         "age": -1,
         "uf": "SC",
     }
-    with pytest.raises(Exception) as excinfo:
+    with pytest.raises(HttpBadRequestError) as excinfo:
         await user_register.register_user(invalid_age_user_data)
     assert "Age must be between 0 and 120." in str(excinfo.value)
     assert user_repository.insert_users_att == {}

@@ -1,4 +1,5 @@
 from src.controllers.interfaces.user_finder import UserFinderInterface
+from src.errors.error_handler import error_handler
 from .http_types.http_request import HttpRequest
 from .http_types.http_response import HttpResponse
 
@@ -8,17 +9,21 @@ class UserFinderView:
         self.__controller = controller
 
     async def handle_find_user_by_name(self, http_request: HttpRequest) -> HttpResponse:
-        if http_request.path_params is None:
+        try:
+            if http_request.path_params is None:
+                return HttpResponse(
+                    body={"error": "Path params required"},
+                    status_code=400
+                )
+
+            user_name = http_request.path_params["user_name"]
+
+            response = await self.__controller.find_user_by_name(user_name)
+
             return HttpResponse(
-                body={"error": "Path params required"},
-                status_code=400
+                body=response,
+                status_code=200
             )
 
-        user_name = http_request.path_params["user_name"]
-
-        response = await self.__controller.find_user_by_name(user_name)
-
-        return HttpResponse(
-            body=response,
-            status_code=200
-        )
+        except Exception as exception:
+            raise error_handler(exception)

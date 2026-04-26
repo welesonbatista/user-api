@@ -1,4 +1,5 @@
 from src.controllers.interfaces.user_register import UserRegisterInterface
+from src.errors.types.http_bad_request_error import HttpBadRequestError
 from src.models.repositories.users_repository import UsersRepositoryInterface
 
 class UserRegister(UserRegisterInterface):
@@ -15,13 +16,13 @@ class UserRegister(UserRegisterInterface):
         uf = user_data.get("uf", "").upper()
 
         if uf not in ["SC", "RS", "PR"]:
-            raise Exception("UF must be one of 'SC', 'RS', or 'PR'.")
+            raise HttpBadRequestError("UF must be one of 'SC', 'RS', or 'PR'.")
 
         if age is None:
-            raise ValueError("Age is required")
+            raise HttpBadRequestError("Age is required")
 
         if age < 0 or age > 120:
-            raise Exception("Age must be between 0 and 120.")
+            raise HttpBadRequestError("Age must be between 0 and 120.")
 
     async def __registry_user(self, user_data: dict) -> None:
         await self.__users_repository.insert_users(user_data)

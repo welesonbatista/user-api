@@ -10,6 +10,7 @@ disable=
       C0115, # missing-class-docstring
       W0012, # ungrouped-imports
       C0114, # missing-module-docstring
+      W0718, # raise-missing-from
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
 # only in one or another interpreter, leading to false positives when analysed.
