@@ -24,7 +24,7 @@ class UserRepositoryMock(UsersRepositoryInterface):
 
 @pytest.mark.asyncio
 async def test_find_user_by_name():
-    user_repo = UserRepositoryMock()
+    user_repo = UserRepositoryMock() 
     user_finder = UserFinder(user_repo)
     user_name = "weleson"
 

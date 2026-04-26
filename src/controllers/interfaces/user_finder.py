@@ -3,4 +3,4 @@ from abc import ABC, abstractmethod
 class UserFinderInterface(ABC):
 
     @abstractmethod
-    def find_user(self, user_name: str) -> dict: pass
+    async def find_user_by_name(self, user_name: str) -> dict: pass
